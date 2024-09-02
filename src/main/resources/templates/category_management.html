@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Categories</title>
+    <!-- Include Bootstrap and any custom stylesheets -->
+</head>
+<body>
+    <div class="container">
+        <h1>Manage Categories</h1>
+        <form th:action="@{/categories/save}" method="post">
+            <div class="form-group">
+                <label for="name">Category Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="type">Type</label>
+                <select class="form-control" id="type" name="type" required>
+                    <option value="INCOME">Income</option>
+                    <option value="EXPENSE">Expense</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save Category</button>
+        </form>
+
+        <h2>Existing Categories</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="category : ${categories}">
+                    <td th:text="${category.name}"></td>
+                    <td th:text="${category.type}"></td>
+                    <td>
+                        <a th:href="@{/categories/edit/{id}(id=${category.id})}" class="btn btn-warning">Edit</a>
+                        <a th:href="@{/categories/delete/{id}(id=${category.id})}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

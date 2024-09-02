@@ -22,17 +22,17 @@ public class UserController {
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new User());
-        return "user-registration";
+        return "register";
     }
 
     @PostMapping("/register")
     public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "user-registration";
+            return "register";
         }
         if (userService.findByUsername(user.getUsername()) != null) {
             result.rejectValue("username", "error.user", "Username is already taken");
-            return "user-registration";
+            return "register";
         }
         userService.registerUser(user);
         return "redirect:/login";

@@ -20,7 +20,7 @@ public class CategoryController {
     @GetMapping("/new")
     public String showCategoryForm(Model model) {
         model.addAttribute("category", new Category());
-        return "category-form";
+        return "category_form";
     }
 
     @PostMapping("/save")
@@ -32,6 +32,6 @@ public class CategoryController {
     @GetMapping
     public String listCategories(Model model) {
         model.addAttribute("categories", categoryService.findAll());
-        return "category-list";
+        return "category_management";
     }
 }

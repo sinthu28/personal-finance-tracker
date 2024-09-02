@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 // import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryService {
@@ -23,6 +24,10 @@ public class CategoryService {
     @Cacheable("categories")  // Cache the result to avoid hitting the database repeatedly
     public List<Category> findAll() {
         return categoryRepository.findAll();
+    }
+
+    public Optional<Category> findById(Long id) {
+        return categoryRepository.findById(id);
     }
 
     public void saveCategory(Category category) {

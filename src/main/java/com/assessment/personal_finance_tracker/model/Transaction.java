@@ -13,7 +13,7 @@ public class Transaction {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @NotNull(message = "Amount is required")
@@ -30,13 +30,14 @@ public class Transaction {
 
     @NotNull(message = "Transaction type is required")
     @Enumerated(EnumType.STRING)
-    private TransactionType type;
+    private TransactionType type; // Enum values should match the controller's "Income" and "Expense"
 
     @NotNull(message = "Category is required")
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -83,5 +84,13 @@ public class Transaction {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

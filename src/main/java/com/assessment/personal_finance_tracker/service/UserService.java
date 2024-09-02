@@ -4,6 +4,9 @@ import com.assessment.personal_finance_tracker.model.User;
 import com.assessment.personal_finance_tracker.repo.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
+
 @Service
 public class UserService {
 
@@ -19,5 +22,9 @@ public class UserService {
 
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
     }
 }
