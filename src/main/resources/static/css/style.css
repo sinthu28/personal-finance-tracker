@@ -1,0 +1,47 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1, h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.summary-section {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 40px;
+}
+
+.summary-item {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 30%;
+}
+
+.recent-transactions table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 40px;
+}
+
+.recent-transactions table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+}
+
+.chart-section {
+    text-align: center;
+}

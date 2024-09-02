@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" th:href="@{/static/css/styles.css}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Dashboard</h1>
+
+        <div class="summary-section">
+            <div class="summary-item">
+                <h2>Total Income</h2>
+                <!-- <p th:text="${#numbers.formatCurrency(totalIncome, 'USD')}">0.00</p>  -->
+                <p>Total Income: <span th:text="${formattedTotalIncome}"></span></p>
+            </div>
+
+            <div class="summary-item">
+                <h2>Total Expenses</h2>
+                <!-- <p th:text="${#numbers.formatCurrency(totalExpenses, 'USD')}">0.00</p> -->
+                <p>Total Expenses: <span th:text="${formattedTotalExpenses}"></span></p>
+            </div>
+
+            <div class="summary-item">
+                <h2>Balance</h2>
+                <!-- <p th:text="${#numbers.formatCurrency(balance, 'USD')}">0.00</p> -->
+                <p>Balance: <span th:text="${formattedBalance}"></span></p>
+            </div>
+        </div>
+
+        <div class="recent-transactions">
+            <h2>Recent Transactions</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="transaction : ${recentTransactions}">
+                        <td th:text="${#dates.format(transaction.transactionDate, 'yyyy-MM-dd HH:mm')}">2024-01-01</td>
+                        <td th:text="${transaction.description}">Description</td>
+                        <td th:text="${transaction.category.name}">Category</td>
+                        <td th:text="${transaction.type}">Type</td>
+                        <td th:text="${#numbers.formatCurrency(transaction.amount, 'USD')}">0.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="chart-section">
+            <h2>Income vs. Expenses</h2>
+            <canvas id="incomeExpenseChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Retrieve data from Thymeleaf template and format it for Chart.js
+        const totalIncome = /*[[${totalIncome}]]*/ 0;
+        const totalExpenses = /*[[${totalExpenses}]]*/ 0;
+
+        const ctx = document.getElementById('incomeExpenseChart').getContext('2d');
+        const incomeExpenseChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Income', 'Expenses'],
+                datasets: [{
+                    label: 'Income vs. Expenses',
+                    data: [totalIncome, totalExpenses],
+                    backgroundColor: ['#4caf50', '#f44336'],
+                    borderColor: ['#4caf50', '#f44336'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed !== null) {
+                                    label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed);
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

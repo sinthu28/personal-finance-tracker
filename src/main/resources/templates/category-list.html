@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Categories</title>
+</head>
+<body>
+    <h1>Categories</h1>
+    <ul>
+        <li th:each="category : ${categories}">
+            <span th:text="${category.name}"></span>
+            <span th:text="${category.type}"></span>
+            <!-- Add options to edit or delete categories -->
+        </li>
+    </ul>
+</body>
+</html>
